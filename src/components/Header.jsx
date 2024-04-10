@@ -1,5 +1,5 @@
-import LOGO from "../assets/logo.jpg"
-import React from "react"
+import LOGO from "../assets/logo.jpg";
+import React from "react";
 
 function Header() {
     return (
