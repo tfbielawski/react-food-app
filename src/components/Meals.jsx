@@ -1,31 +1,34 @@
-import React, { useState, useEffect  } from "react";
+import useHttp from "../hooks/useHttp";
+import MealItem from "./MealItem";
+import Error from './Error.jsx';
 
-function Meals() {
-    //State to handle delay in getting meals when app loads
-    const [loadedMeals, setLoadedMeals] = useState([]);
+//create the config object outside of the component to avoid infinite loops
+const requestConfig = {};
 
-    useEffect(() =>{
-        async function fetchMeals(){        
-            const response = await fetch("http://localhost:3000/meals");
-    
-            if(!response.ok){
-                //...
-            }
-            // const meals = await response.json();
-            const meals = await response.json();
-            //set meals state with backend response
-            setLoadedMeals(meals);
-        }
-        fetchMeals();
-    }, []);
-  
+export default function Meals() {
+    const { 
+        data: loadedMeals, 
+        isLoading, 
+        error,
+        //initialData is an empty array: when component is first loaded, no data is returned and it won't fail
+        //empty object
+    } = useHttp("http://localhost:3000/meals", requestConfig, []);
+
+
+    if(isLoading) {
+        return <h2 className="center">Loading Meals...</h2>;
+    }
+
+    if(error) {
+        return <Error title="Sum ting went wong." message={error} />;
+    }
+
     return (
         <ul id="meals">
             {loadedMeals.map((meal) => (
-            <li key={meal.id}>{meal.name}</li>
+            <MealItem key={meal.id} meal={meal}/>
             ))}
         </ul>
     );
 }
 
-export default Meals;
