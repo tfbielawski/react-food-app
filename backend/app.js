@@ -63,7 +63,7 @@ app.use((req, res) => {
     return res.sendStatus(200);
   }
 
-  res.status(404).json({ message: 'Not found' });
+  res.status(404).json({ message: 'Sorry: not found' });
 });
 
 app.listen(3000);
