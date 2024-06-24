@@ -16,8 +16,8 @@ export default function Meals() {
 
 
     if(isLoading) {
-        return <h2 className="center">Please allow at least a minute for the backend load data for the first time.
-        Render spins down the backend after a period of inactivity...</h2>;
+        return <h2 className="center">Please allow 2 to 3 minutes for the backend load data for the first time.
+        Render (free backend hosting) spins down the backend after a period of inactivity...</h2>;
     }
 
     if(error) {
